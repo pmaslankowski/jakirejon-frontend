@@ -12,9 +12,11 @@ jobs:
       - name: Push to GitHub Container Registry
         uses: docker/build-push-action@v2
         with:
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          registry: docker.pkg.github.com
-          repository: pmaslankowski/jakirejon-frontend/prod
-          tag_with_ref: true
+          # username: ${{ github.actor }}
+          # password: ${{ secrets.GITHUB_TOKEN }}
+          # registry: docker.pkg.github.com
+          # repository: pmaslankowski/jakirejon-frontend/prod
+          # tag_with_ref: true
           file: Dockerfile.prod
+          push: true
+          tags: docker.pkg.github.com/pmaslankowski/jakirejon-frontend/prod:latest
