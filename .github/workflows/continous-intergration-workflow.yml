@@ -18,5 +18,4 @@ jobs:
           # repository: pmaslankowski/jakirejon-frontend/prod
           # tag_with_ref: true
           file: Dockerfile.prod
-          push: true
           tags: docker.pkg.github.com/pmaslankowski/jakirejon-frontend/prod:latest
