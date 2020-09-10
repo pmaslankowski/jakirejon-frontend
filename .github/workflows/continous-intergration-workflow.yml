@@ -14,7 +14,7 @@ jobs:
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          registry: ghcr.io
+          registry: docker.pkg.github.com
           repository: pmaslankowski/jakirejon-frontend/prod
           tag_with_ref: true
           file: Dockerfile.prod
