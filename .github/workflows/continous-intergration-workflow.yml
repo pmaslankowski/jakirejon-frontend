@@ -1,8 +1,7 @@
 name: Deploy to prod
-on:
-  push:
-    branches:
-      - master
+on: [push]
+    # branches:
+      # - master
 jobs:
   build:
     name: Build prod image
@@ -11,7 +10,7 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
       - name: Push to GitHub Container Registry
-        uses: docker/build-push-action@v1
+        uses: docker/build-push-action@v2
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
