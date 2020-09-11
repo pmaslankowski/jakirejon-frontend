@@ -9,6 +9,10 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          driver-opts: network=host
       - name: Push to GitHub Container Registry
         uses: docker/build-push-action@v2
         with:
@@ -17,5 +21,6 @@ jobs:
           # registry: docker.pkg.github.com
           # repository: pmaslankowski/jakirejon-frontend/prod
           # tag_with_ref: true
+          push: true
           file: Dockerfile.prod
           tags: docker.pkg.github.com/pmaslankowski/jakirejon-frontend/prod:latest
