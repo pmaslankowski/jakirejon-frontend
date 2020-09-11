@@ -24,3 +24,5 @@ jobs:
           push: true
           file: Dockerfile.prod
           tags: docker.pkg.github.com/pmaslankowski/jakirejon-frontend/prod:latest
+          secrets: |
+            GIT_AUTH_TOKEN=${{ github.token }}
