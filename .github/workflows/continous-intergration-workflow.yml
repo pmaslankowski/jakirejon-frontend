@@ -1,7 +1,11 @@
 name: Deploy to prod
-on: [push]
-    # branches:
-      # - master
+on: 
+  workflow_dispatch:
+    inputs:
+      version: 
+        description: 'Version (conforming to SemVer)'
+        required: true
+    # TODO: make sure that this step can be run on master only
 jobs:
   build:
     name: Build prod image
@@ -18,19 +22,20 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - 
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-        with:
-          driver-opts: network=host
+        name: Build prod image
+        run: >
+          docker build -f Dockerfile.prod 
+            --tag docker.pkg.github.com/pmaslankowski/jakirejon-frontend/prod:${{ github.event.inputs.version }}
       - 
-        name: Push to GitHub Container Registry
-        uses: docker/build-push-action@v2
-        with:
+        name: Push to GitHub Packages Docker Registry
+        run: docker push docker.pkg.github.com/pmaslankowski/jakirejon-frontend/prod:${{ github.event.inputs.version }}
+        # uses: docker/build-push-action@v2
+        # with:
           # username: ${{ github.actor }}
           # password: ${{ secrets.GITHUB_TOKEN }}
           # registry: docker.pkg.github.com
           # repository: pmaslankowski/jakirejon-frontend/prod
           # tag_with_ref: true
-          push: true
-          file: Dockerfile.prod
-          tags: docker.pkg.github.com/pmaslankowski/jakirejon-frontend/prod:latest
+          # push: true
+          # file: Dockerfile.prod
+          # tags: docker.pkg.github.com/pmaslankowski/jakirejon-frontend/prod:latest
