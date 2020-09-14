@@ -29,13 +29,3 @@ jobs:
       - 
         name: Push to GitHub Packages Docker Registry
         run: docker push docker.pkg.github.com/pmaslankowski/jakirejon-frontend/prod:${{ github.event.inputs.version }}
-        # uses: docker/build-push-action@v2
-        # with:
-          # username: ${{ github.actor }}
-          # password: ${{ secrets.GITHUB_TOKEN }}
-          # registry: docker.pkg.github.com
-          # repository: pmaslankowski/jakirejon-frontend/prod
-          # tag_with_ref: true
-          # push: true
-          # file: Dockerfile.prod
-          # tags: docker.pkg.github.com/pmaslankowski/jakirejon-frontend/prod:latest
