@@ -5,7 +5,6 @@ on:
       version: 
         description: 'Version (conforming to SemVer)'
         required: true
-    # TODO: make sure that this step can be run on master only
 jobs:
   build:
     name: Build prod image
