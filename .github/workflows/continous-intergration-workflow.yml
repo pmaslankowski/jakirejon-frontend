@@ -25,6 +25,7 @@ jobs:
         run: >
           docker build -f Dockerfile.prod 
             --tag docker.pkg.github.com/pmaslankowski/jakirejon-frontend/prod:${{ github.event.inputs.version }}
+            .
       - 
         name: Push to GitHub Packages Docker Registry
         run: docker push docker.pkg.github.com/pmaslankowski/jakirejon-frontend/prod:${{ github.event.inputs.version }}
