@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
 } from "react-router-dom";
 
-import SearchForm from './search/SearchForm';
+import Search from './search/Search';
 
 import Container from 'react-bootstrap/Container';
 
@@ -26,17 +26,6 @@ const App = () => (
     </Router>
   </Container>
 );
-
-const Search = () => {
-  return (
-    <div class="h-100 d-flex flex-wrap justify-content-center align-items-center">
-      <div>
-        <h1 className="header text-center">Znajdź ośrodek podstawowej opieki zdrowotnej (POZ)</h1>
-        <SearchForm onSubmit={selected => console.log(' sel' + selected)}/>
-      </div>
-    </div>
-  );
-};
 
 const Street = () => {
   return (
