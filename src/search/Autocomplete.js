@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import PropTypes from 'prop-types';
 
 import Form from 'react-bootstrap/Form';
 
 const Autocomplete = props => {
-  const {
-    value = '', 
-    onSearch = async () => {}, 
-    onChange = () => {}, 
-        minLength = 3, 
-        ...other
-  } = props;
+  const suggestionsUuid = uuidv4();
+
+  const { value, onSearch, onChange, minLength, ...other } = props;
   
   const [suggestions, setSuggestions] = useState([]);
 
@@ -27,8 +25,7 @@ const Autocomplete = props => {
   const renderSuggestions = () => {
     const suggestionsToRender = suggestions.map(s => (<option value={s} key={s}/>));
     return (
-      // TODO: jakieś lepsze id dla tej listy
-      <datalist id="suggestions" data-testid="suggestions">
+      <datalist id={suggestionsUuid} data-testid="suggestions">
         {suggestionsToRender}
       </datalist>
     )
@@ -38,7 +35,7 @@ const Autocomplete = props => {
     <>
       <Form.Control 
         type="text" 
-        list="suggestions"
+        list={suggestionsUuid}
         onChange={handleChange}
         value={value} 
         {...other} />
@@ -46,5 +43,17 @@ const Autocomplete = props => {
     </>
   )
 }
+
+Autocomplete.defaultProps = {
+  value: '',
+  minLength: 3,
+  onSearch: async () => {},
+  onChange: () => {}
+};
+
+Autocomplete.propTypes = {
+  value: PropTypes.string,
+  minLength: PropTypes.number
+};
 
 export default Autocomplete;
