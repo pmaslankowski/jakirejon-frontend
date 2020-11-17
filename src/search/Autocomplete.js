@@ -53,7 +53,9 @@ Autocomplete.defaultProps = {
 
 Autocomplete.propTypes = {
   value: PropTypes.string,
-  minLength: PropTypes.number
+  minLength: PropTypes.number,
+  onSearch: PropTypes.func,
+  onChange: PropTypes.func
 };
 
 export default Autocomplete;
