@@ -2,7 +2,7 @@ import React from 'react';
 import Autocomplete from './Autocomplete';
 
 import userEvent from '@testing-library/user-event'
-import { render, act, fireEvent, waitForElement, screen } from '@testing-library/react';
+import { render, act, screen } from '@testing-library/react';
 
 
 describe('<Autocomplete/>', () => {
