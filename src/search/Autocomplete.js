@@ -25,7 +25,7 @@ const Autocomplete = props => {
   const renderSuggestions = () => {
     const suggestionsToRender = suggestions.map(s => (<option value={s} key={s}/>));
     return (
-      <datalist id={suggestionsUuid} data-testid="suggestions">
+      <datalist id={suggestionsUuid}>
         {suggestionsToRender}
       </datalist>
     )
