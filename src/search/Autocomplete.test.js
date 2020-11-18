@@ -1,6 +1,6 @@
 import React from 'react';
 
-import userEvent from '@testing-library/user-event'
+import user from '@testing-library/user-event'
 import { render, screen, waitFor } from '@testing-library/react';
 
 import getByValue from './testUtils';
@@ -14,7 +14,7 @@ describe('<Autocomplete/>', () => {
     render(<Autocomplete onChange={onChange} aria-label='autocomplete' />);
     const input = screen.getByLabelText('autocomplete');
     
-    await userEvent.type(input, 'va');
+    await user.type(input, 'va');
 
     expect(onChange).toBeCalledWith('va');
   });
@@ -25,7 +25,7 @@ describe('<Autocomplete/>', () => {
     const { container } = render(<Autocomplete onSearch={onSearch} aria-label='autocomplete' />);
     const input = screen.getByLabelText('autocomplete');
 
-    await userEvent.type(input, 'abc');
+    await user.type(input, 'abc');
 
     expect(onSearch).toBeCalledWith('abc');
 
