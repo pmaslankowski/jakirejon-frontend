@@ -3,7 +3,7 @@ import React from 'react';
 import user from '@testing-library/user-event'
 import { render, screen, waitFor } from '@testing-library/react';
 
-import getByValue from './testUtils';
+import getByValue from '../../testUtils';
 
 import Autocomplete from './Autocomplete';
 

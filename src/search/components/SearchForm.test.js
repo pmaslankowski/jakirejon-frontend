@@ -3,7 +3,7 @@ import React from 'react';
 import user from '@testing-library/user-event';
 import { render, waitFor, screen } from '@testing-library/react';
 
-import getByValue from './testUtils';
+import getByValue from '../../testUtils';
 import SearchForm from './SearchForm';
 
 const inputLabel = /search-input/i;

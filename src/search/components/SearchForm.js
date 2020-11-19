@@ -6,8 +6,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 // TODO: absoulute paths
-import { fetchMatchingStreets } from './search-api';
-import { parseAddress } from './address';
+import { fetchMatchingStreets } from './../search-api';
+import { parseAddress } from './../address';
 import Autocomplete from './Autocomplete';
 
 
