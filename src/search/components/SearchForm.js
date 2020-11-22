@@ -19,8 +19,7 @@ const SearchForm = props => {
   const handleClick = e => {
     e.preventDefault();
     if (value) {
-      const result = parseAddress(value);
-      onSubmit(result);
+      onSubmit(value);
     } else {
       setInvalid(true);
     }

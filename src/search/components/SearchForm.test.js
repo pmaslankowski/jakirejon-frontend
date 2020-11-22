@@ -51,10 +51,7 @@ describe('<SearchForm/>', () => {
     const error = screen.queryByText(errorText);
     expect(error).toBeFalsy();
 
-    expect(onSubmit).toHaveBeenCalledWith({
-      street: 'idzikowskiego',
-      apartment: '123a'
-    });
+    expect(onSubmit).toHaveBeenCalledWith('idzikowskiego 123a');
 
     waitFor(() => {
       const suggestion = getByValue(container, 'Idzikowskiego');
