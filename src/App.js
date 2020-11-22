@@ -25,14 +25,16 @@ const Page = () => {
 
   return (
     <Container className="h-100">
-      <Switch>
-        <Route path="/address">
-          <AddressDetails address={query.get('address')}/>
-        </Route>
-        <Route path="/">
-          <Search/>
-        </Route>
-      </Switch>
+      <div className="h-100 d-flex flex-wrap justify-content-center align-items-center">
+        <Switch>
+          <Route path="/address">
+            <AddressDetails address={query.get('address')}/>
+          </Route>
+          <Route path="/">
+            <Search/>
+          </Route>
+        </Switch>
+      </div>
     </Container>
   );
 };

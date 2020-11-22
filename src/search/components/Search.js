@@ -7,11 +7,9 @@ const Search = () => {
   const [address, setAddress] = useState();
 
   const renderForm = () => (
-    <div className="h-100 d-flex flex-wrap justify-content-center align-items-center">
-      <div>
-        <h1 className="header text-center">Znajdź ośrodek podstawowej opieki zdrowotnej (POZ)</h1>
-        <SearchForm onSubmit={setAddress}/>
-      </div>
+    <div>
+      <h1 className="header text-center">Znajdź ośrodek podstawowej opieki zdrowotnej (POZ)</h1>
+      <SearchForm onSubmit={setAddress}/>
     </div>
   );
 
