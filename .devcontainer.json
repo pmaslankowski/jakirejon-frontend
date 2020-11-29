@@ -1,5 +1,7 @@
 {
-	"dockerFile": "Dockerfile",
+	"dockerComposeFile": "docker-compose.yml",
+	"workspaceFolder": "/workspace",
+	"service": "frontend",
 	"context": ".",
 	"forwardPorts": [3000],
 	"settings": {
