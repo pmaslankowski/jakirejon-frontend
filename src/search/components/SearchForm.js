@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-import { fetchMatchingStreets } from './../search-api';
+import api from './../search-api';
 import { parseAddress } from './../address';
 import Autocomplete from './Autocomplete';
 
@@ -56,7 +56,7 @@ const SearchForm = props => {
 
 const getSuggestions = async val => {
   const { street } = parseAddress(val);
-  return await fetchMatchingStreets(street);
+  return await api.fetchMatchingStreets(street);
 }
 
 SearchForm.defaultProps = {

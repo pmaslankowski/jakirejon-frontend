@@ -5,6 +5,9 @@ import { render, waitFor, screen } from '@testing-library/react';
 
 import getByValue from '../../testUtils';
 import SearchForm from './SearchForm';
+import api from '../search-api';
+
+jest.mock('../search-api');
 
 const inputLabel = /search-input/i;
 const submitText = /szukaj/i;
@@ -14,8 +17,9 @@ describe('<SearchForm/>', () => {
   it('handles user typing', async () => {
     const { container } = render(<SearchForm/>);
     
-    const input = screen.getByLabelText(inputLabel);
+    api.fetchMatchingStreets = jest.fn().mockResolvedValue(['Idzikowskiego']);
 
+    const input = screen.getByLabelText(inputLabel);
     await user.type(input, 'idzik');
 
     const error = screen.queryByText(errorText);
@@ -43,8 +47,9 @@ describe('<SearchForm/>', () => {
 
     const { container } = render(<SearchForm onSubmit={onSubmit}/>);
 
-    const input = screen.getByLabelText(inputLabel);
+    api.fetchMatchingStreets = jest.fn().mockResolvedValue(['Idzikowskiego']);
 
+    const input = screen.getByLabelText(inputLabel);
     await user.type(input, 'idzikowskiego 123a');
     user.click(screen.getByText(submitText));
 
@@ -62,8 +67,9 @@ describe('<SearchForm/>', () => {
   it('handles typing after incorrect submission', async () => {
     const { container } = render(<SearchForm/>);
 
-    const input = screen.getByLabelText(inputLabel);
+    api.fetchMatchingStreets = jest.fn().mockResolvedValue(['Idzikowskiego']);
 
+    const input = screen.getByLabelText(inputLabel);
     user.click(screen.getByText(submitText));
     await user.type(input, 'val');
 
