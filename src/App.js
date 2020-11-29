@@ -3,9 +3,11 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  useLocation
 } from "react-router-dom";
 
 import Search from './search/components/Search';
+import AddressDetails from './address-details/components/AddressDetails';
 
 import Container from 'react-bootstrap/Container';
 
@@ -13,24 +15,32 @@ import './App.css';
 
 
 const App = () => (
-  <Container className="h-100">
-    <Router>
-      <Switch>
-        <Route path="/street">
-          <Street/>
-        </Route>
-        <Route path="/">
-          <Search/>
-        </Route>
-      </Switch>
-    </Router>
-  </Container>
+  <Router>
+    <Page/>
+  </Router>
 );
 
-const Street = () => {
+const Page = () => {
+  let query = useQuery();
+
   return (
-    <h2>Street TODO</h2>
+    <Container className="h-100">
+      <div className="h-100 d-flex flex-wrap justify-content-center align-items-center">
+        <Switch>
+          <Route path="/address">
+            <AddressDetails address={query.get('address')}/>
+          </Route>
+          <Route path="/">
+            <Search/>
+          </Route>
+        </Switch>
+      </div>
+    </Container>
   );
-}
+};
+
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
+};
 
 export default App;
