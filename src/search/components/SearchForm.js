@@ -30,6 +30,12 @@ const SearchForm = props => {
     setInvalid(false);
   }
 
+  const handleSuggestionSelected = suggestion => {
+    const { apartment } = parseAddress(value);
+    const newValue = `${suggestion} ${apartment}`;
+    setValue(newValue);
+  }
+
   return (
     <Form className="text-center" >
       <Form.Group>
@@ -37,6 +43,7 @@ const SearchForm = props => {
           aria-label="search-input"
           onChange={handleChange}
           onSearch={getSuggestions}
+          onSuggestionSelected={handleSuggestionSelected}
           value={value}
           className={isInvalid && "is-invalid"}
         />

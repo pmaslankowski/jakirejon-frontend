@@ -64,6 +64,23 @@ describe('<SearchForm/>', () => {
     });
   });
 
+  it('handles suggestion selection and valid submission', async () => {
+    const onSubmit = jest.fn();
+
+    const { container } = render(<SearchForm onSubmit={onSubmit}/>);
+
+    api.fetchMatchingStreets = jest.fn().mockResolvedValue(['Idzikowskiego']);
+
+    const input = screen.getByLabelText(inputLabel);
+    await user.type(input, 'idzikawskiego-with-mistake 123a');
+    
+    const suggestion = await screen.findByText('Idzikowskiego');
+    await user.click(suggestion);
+
+    await user.click(screen.getByText(submitText));
+    expect(onSubmit).toHaveBeenCalledWith('Idzikowskiego 123a');
+  });
+
   it('handles typing after incorrect submission', async () => {
     const { container } = render(<SearchForm/>);
 
