@@ -3,8 +3,6 @@ import React from 'react';
 import user from '@testing-library/user-event'
 import { render, screen, waitFor } from '@testing-library/react';
 
-import getByValue from '../../testUtils';
-
 import Autocomplete from './Autocomplete';
 
 describe('<Autocomplete/>', () => {
@@ -19,19 +17,24 @@ describe('<Autocomplete/>', () => {
     expect(onChange).toBeCalledWith('va');
   });
 
-  it('sets suggestions from onSearch when value length is equal to minLength', async () => {
+  it('shows suggestions and handles clicked suggestion', async () => {
     const onSearch = jest.fn().mockResolvedValue(['Idzikowskiego']);
+    const onSuggestionSelected = jest.fn();
 
-    const { container } = render(<Autocomplete onSearch={onSearch} aria-label='autocomplete' />);
+    const { container } = render(<Autocomplete
+      onSearch={onSearch}
+      onSuggestionSelected={onSuggestionSelected}
+      aria-label='autocomplete' />
+    );
+
     const input = screen.getByLabelText('autocomplete');
 
     await user.type(input, 'abc');
 
-    expect(onSearch).toBeCalledWith('abc');
-
-    waitFor(() => {
-      const suggestion = getByValue(container, 'Idzikowskiego');
-      expect(suggestion).toBeTruthy();
-    });
+    const suggestion = await screen.findByText('Idzikowskiego');
+    await user.click(suggestion);
+    
+    expect(screen.queryByText('Idzikowskiego')).toBeFalsy();
+    expect(onSuggestionSelected).toBeCalledWith('Idzikowskiego');
   });
 });

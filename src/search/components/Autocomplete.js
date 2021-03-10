@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 
 import Form from 'react-bootstrap/Form';
 
-const Autocomplete = props => {
-  const suggestionsUuid = uuidv4();
+import styles from './Autocomplete.module.css';
 
-  const { value, onSearch, onChange, minLength, ...other } = props;
+const Autocomplete = props => {
+  const { value, onSearch, onChange, onSuggestionSelected, minLength, ...other } = props;
   
   const [suggestions, setSuggestions] = useState([]);
 
@@ -22,25 +21,36 @@ const Autocomplete = props => {
     }
   }
 
+  const handleSuggestionSelected = suggestion => {
+    setSuggestions([]);
+    onSuggestionSelected(suggestion);
+  }
+
   const renderSuggestions = () => {
-    const suggestionsToRender = suggestions.map(s => (<option value={s} key={s}/>));
-    return (
-      <datalist id={suggestionsUuid}>
-        {suggestionsToRender}
-      </datalist>
+    return suggestions.length > 0 && (
+      <ul className={styles.suggestionsList}>
+        {suggestions.map(renderSuggestion)}
+      </ul>
     )
   }
 
+  const renderSuggestion = suggestion => (
+    <li className={styles.suggestion}
+        key={suggestion}
+        onClick={() => handleSuggestionSelected(suggestion)}>
+      {suggestion}
+    </li>
+  );
+
   return (
-    <>
+    <div className={styles.container}>
       <Form.Control 
         type="text" 
-        list={suggestionsUuid}
         onChange={handleChange}
         value={value} 
         {...other} />
       {renderSuggestions()}
-    </>
+    </div>
   )
 }
 
@@ -48,14 +58,16 @@ Autocomplete.defaultProps = {
   value: '',
   minLength: 3,
   onSearch: async () => {},
-  onChange: () => {}
+  onChange: () => {},
+  onSuggestionSelected: () => {}
 };
 
 Autocomplete.propTypes = {
   value: PropTypes.string,
   minLength: PropTypes.number,
   onSearch: PropTypes.func,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  onSuggestionSelected: PropTypes.func
 };
 
 export default Autocomplete;
