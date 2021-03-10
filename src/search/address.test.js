@@ -10,6 +10,7 @@ describe('parseAddress', () => {
     ${'idzikowskiego 123a'}   | ${{ street: 'idzikowskiego', apartment: '123a' }}
     ${'idzikowskiego  123a'}  | ${{ street: 'idzikowskiego', apartment: '123a' }}
     ${'idzikowskiego 123a b'} | ${{ street: 'idzikowskiego', apartment: '123a b' }}
+    ${'świętego idziego 11'}  | ${{ street: 'świętego idziego', apartment: '11' }}
   `('should handle $input', ({ input, expected }) => {
     const actual = parseAddress(input);
 

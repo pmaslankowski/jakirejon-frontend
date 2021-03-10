@@ -1,5 +1,5 @@
 
-const ADDR_REGEX = /([^\d\s]*)(\s+(.*))?/;
+const ADDR_REGEX = /^(.*?)(\s+(\d+.*))?$/;
 
 export const parseAddress = text => {
   if (!text) {
