@@ -3,15 +3,19 @@ import PropTypes from 'prop-types';
 
 import addressDetailsApi from '../address-details-api';
 
-const AddressDetails = ({ address }) => {
+const AddressDetails = ({ address, className }) => {
   
   const [isLoading, setLoading] = useState(true);
   const [details, setDetails] = useState();
 
   useEffect(() => {
     const fetch = async () => {
-      const addressDetails = await addressDetailsApi.fetchAddressDetails(address);
-      setDetails(addressDetails);
+      try {
+        const addressDetails = await addressDetailsApi.fetchAddressDetails(address);
+        setDetails(addressDetails);
+      } catch (e) {
+        console.log(e);
+      }
       setLoading(false);
     };
 
@@ -33,26 +37,28 @@ const AddressDetails = ({ address }) => {
   );
 
   const renderDetailsTable = () => (
-    <table className="table">
-      <tbody>
-        <tr>
-          <td>Wyszukiwany adres</td>
-          <td>{details.address}</td>
-        </tr>
-        <tr>
-          <td>Nazwa szpitala</td>
-          <td>{details.hospital.name}</td>
-        </tr>
-        <tr>
-          <td>Adres szpitala</td>
-          <td>{details.hospital.address}</td>
-        </tr>
-        <tr>
-          <td>Numer telefonu</td>
-          <td>{details.hospital.phone}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div className={className}>
+      <table className="table">
+        <tbody>
+          <tr>
+            <td>Wyszukiwany adres</td>
+            <td>{details.address}</td>
+          </tr>
+          <tr>
+            <td>Nazwa szpitala</td>
+            <td>{details.hospital.name}</td>
+          </tr>
+          <tr>
+            <td>Adres szpitala</td>
+            <td>{details.hospital.address}</td>
+          </tr>
+          <tr>
+            <td>Numer telefonu</td>
+            <td>{details.hospital.phone}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   );
 
   return isLoading ? renderSpinner() : renderDetails();
