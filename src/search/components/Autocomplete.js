@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import Form from 'react-bootstrap/Form';
@@ -9,6 +9,7 @@ const Autocomplete = props => {
   const { value, onSearch, onChange, onSuggestionSelected, minLength, ...other } = props;
   
   const [suggestions, setSuggestions] = useState([]);
+  const inputRef = useRef(null);
 
   const handleChange = async e => {
     const newVal = e.target.value;
@@ -23,6 +24,7 @@ const Autocomplete = props => {
 
   const handleSuggestionSelected = suggestion => {
     setSuggestions([]);
+    inputRef.current.focus();
     onSuggestionSelected(suggestion);
   }
 
@@ -47,8 +49,9 @@ const Autocomplete = props => {
       <Form.Control 
         type="text" 
         onChange={handleChange}
-        value={value} 
-        {...other} />
+        value={value}
+        ref={inputRef} 
+        {...other}/>
       {renderSuggestions()}
     </div>
   )

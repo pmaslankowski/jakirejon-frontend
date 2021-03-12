@@ -21,7 +21,7 @@ describe('<Autocomplete/>', () => {
     const onSearch = jest.fn().mockResolvedValue(['Idzikowskiego']);
     const onSuggestionSelected = jest.fn();
 
-    const { container } = render(<Autocomplete
+    render(<Autocomplete
       onSearch={onSearch}
       onSuggestionSelected={onSuggestionSelected}
       aria-label='autocomplete' />
@@ -36,5 +36,6 @@ describe('<Autocomplete/>', () => {
     
     expect(screen.queryByText('Idzikowskiego')).toBeFalsy();
     expect(onSuggestionSelected).toBeCalledWith('Idzikowskiego');
+    expect(input).toHaveFocus();
   });
 });
