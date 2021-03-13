@@ -36,10 +36,10 @@ describe('<AddressDetails/>', () => {
     expect(await screen.findByText(/123 456 789/i)).toBeTruthy();
   });
 
-  it('shows not found message when address does not exist', async () => {
-    addressDetailsApi.fetchAddressDetails = jest.fn().mockImplementation(
-      () => new Promise(resolve => setTimeout(() => resolve(null), 100))
-    );
+  it('shows error message when api returns an error', async () => {
+    addressDetailsApi.fetchAddressDetails = jest.fn().mockRejectedValue({
+      message: 'error!'
+    });
 
     render(<AddressDetails address={'Testowa 123'} />);
     
@@ -47,6 +47,6 @@ describe('<AddressDetails/>', () => {
     
     jest.advanceTimersByTime(200);
     
-    expect(await screen.findByText('Ulica Testowa 123 nie została znaleziona')).toBeTruthy();
+    expect(await screen.findByText('error!')).toBeTruthy();
   });
 })

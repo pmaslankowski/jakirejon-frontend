@@ -7,14 +7,17 @@ const AddressDetails = ({ address, className }) => {
   
   const [isLoading, setLoading] = useState(true);
   const [details, setDetails] = useState();
+  const [errorMsg, setErrorMsg] = useState();
 
   useEffect(() => {
     const fetch = async () => {
+      setLoading(true);
+      setErrorMsg(null);
       try {
         const addressDetails = await addressDetailsApi.fetchAddressDetails(address);
         setDetails(addressDetails);
       } catch (e) {
-        console.log(e);
+        setErrorMsg(e.message);
       }
       setLoading(false);
     };
@@ -29,11 +32,11 @@ const AddressDetails = ({ address, className }) => {
   );
   
   const renderDetails = () => {
-    return details ? renderDetailsTable() : renderNotFoundInfo();
+    return errorMsg ? renderError() : renderDetailsTable();
   };
 
-  const renderNotFoundInfo = () => (
-    <h3 className="text-secondary">Ulica {address} nie została znaleziona</h3>
+  const renderError = () => (
+    <h5 className="text-info">{errorMsg}</h5>
   );
 
   const renderDetailsTable = () => (
