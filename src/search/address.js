@@ -1,5 +1,5 @@
 
-const ADDR_REGEX = /^(.*?)(\s+(\d+.*))?$/;
+const ADDR_REGEX = /^(.*?)\s*(\d+.*)?$/;
 
 export const parseAddress = text => {
   if (!text) {
@@ -7,5 +7,5 @@ export const parseAddress = text => {
   }
 
   const match = text.match(ADDR_REGEX);
-  return { street: match[1] || '', apartment: match[3] || '' };
+  return { street: match[1] || '', apartment: match[2] || '' };
 };
