@@ -77,4 +77,20 @@ describe('<Autocomplete/>', () => {
     await user.type(input, 'Id');
     expect(screen.queryByText('Idzikowskiego')).toBeFalsy();
   });
+
+  it('should handle suggestions fetching errors gracefully', async () => {
+    const onSearch = jest.fn()
+      .mockRejectedValue('error!')
+      .mockResolvedValue(['Idzikowskiego']);
+
+    render(<Autocomplete
+      onSearch={onSearch}
+      aria-label='autocomplete' />
+    );
+  
+    const input = screen.getByLabelText('autocomplete');
+    await user.type(input, 'Idzikowsk');
+
+    expect(await screen.findByText('Idzikowskiego')).toBeTruthy();
+  });
 });

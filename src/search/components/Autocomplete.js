@@ -25,7 +25,7 @@ const Autocomplete = props => {
   useEffect(() => {
     const updateSuggestions = async () => {
       if (key.length > minLength) {
-        const suggestions = await onSearch(key);
+        const suggestions = await getSuggestions(key);
         setSuggestions(suggestions);
         setShowSuggestions(!isSuggested(key, suggestions));  
       } else {
@@ -35,6 +35,15 @@ const Autocomplete = props => {
     };
     updateSuggestions();
   }, [key]);
+
+  const getSuggestions = async key => {
+    try {
+      return await onSearch(key);
+    } catch (e) {
+      console.log('An error occured during suggestions fetching:', e);
+      return [];
+    }
+  };
 
   const isSuggested = (key, suggestions) => {
     return suggestions.map(x => x.toLowerCase()).includes(key.toLowerCase());
