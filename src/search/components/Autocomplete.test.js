@@ -1,7 +1,7 @@
 import React from 'react';
 
 import user from '@testing-library/user-event'
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitForElementToBeRemoved } from '@testing-library/react';
 
 import Autocomplete from './Autocomplete';
 
@@ -29,13 +29,33 @@ describe('<Autocomplete/>', () => {
 
     const input = screen.getByLabelText('autocomplete');
 
-    await user.type(input, 'abc');
+    await user.type(input, 'Idzikows');
 
     const suggestion = await screen.findByText('Idzikowskiego');
-    await user.click(suggestion);
+    user.click(suggestion);
     
     expect(screen.queryByText('Idzikowskiego')).toBeFalsy();
     expect(onSuggestionSelected).toBeCalledWith('Idzikowskiego');
     expect(input).toHaveFocus();
+  });
+
+  it('should hide suggestion when suggestions contain current value', async () => {
+    const onSearch = jest.fn().mockResolvedValue(['Idzikowskiego']);
+    const onSuggestionSelected = jest.fn();
+
+    render(<Autocomplete
+      onSearch={onSearch}
+      onSuggestionSelected={onSuggestionSelected}
+      aria-label='autocomplete' />
+    );
+
+    const input = screen.getByLabelText('autocomplete');
+
+    await user.type(input, 'Idzikows');
+    const suggestion = await screen.findByText('Idzikowskiego');
+    expect(suggestion).toBeTruthy();
+    
+    user.type(input, 'Idzikowskiego');
+    await waitForElementToBeRemoved(() => screen.queryByText('Idzikowskiego'));
   });
 });

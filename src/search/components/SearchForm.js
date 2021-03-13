@@ -36,6 +36,11 @@ const SearchForm = props => {
     setValue(newValue);
   }
 
+  const getStreet = (address) => {
+    const { street } = parseAddress(address);
+    return street;
+  }
+
   return (
     <Form className="text-center" >
       <Form.Group>
@@ -44,6 +49,7 @@ const SearchForm = props => {
           onChange={handleChange}
           onSearch={getSuggestions}
           onSuggestionSelected={handleSuggestionSelected}
+          extractKey={getStreet}
           value={value}
           className={isInvalid && "is-invalid"}
         />
@@ -61,8 +67,7 @@ const SearchForm = props => {
   );
 };
 
-const getSuggestions = async val => {
-  const { street } = parseAddress(val);
+const getSuggestions = async street => {
   return await api.fetchMatchingStreets(street);
 }
 

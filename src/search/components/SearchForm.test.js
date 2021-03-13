@@ -51,6 +51,10 @@ describe('<SearchForm/>', () => {
 
     const input = screen.getByLabelText(inputLabel);
     await user.type(input, 'idzikowskiego 123a');
+
+    const suggestion = screen.queryByText('Idzikowskiego');
+    expect(suggestion).toBeFalsy();
+
     user.click(screen.getByText(submitText));
 
     const error = screen.queryByText(errorText);
@@ -75,9 +79,9 @@ describe('<SearchForm/>', () => {
     await user.type(input, 'idzikawskiego-with-mistake 123a');
     
     const suggestion = await screen.findByText('Idzikowskiego');
-    await user.click(suggestion);
+    user.click(suggestion);
 
-    await user.click(screen.getByText(submitText));
+    user.click(screen.getByText(submitText));
     expect(onSubmit).toHaveBeenCalledWith('Idzikowskiego 123a');
   });
 
