@@ -55,7 +55,26 @@ describe('<Autocomplete/>', () => {
     const suggestion = await screen.findByText('Idzikowskiego');
     expect(suggestion).toBeTruthy();
     
-    user.type(input, 'Idzikowskiego');
-    await waitForElementToBeRemoved(() => screen.queryByText('Idzikowskiego'));
+    user.type(input, 'Idzikowskiego', { delay: 1});
+    await waitForElementToBeRemoved(screen.queryByText('Idzikowskiego'));
+  });
+
+  it('should hide suggestions when user deletes the value', async () => {
+    const onSearch = jest.fn().mockResolvedValue(['Idzikowskiego']);
+    const onSuggestionSelected = jest.fn();
+
+    render(<Autocomplete
+      onSearch={onSearch}
+      onSuggestionSelected={onSuggestionSelected}
+      aria-label='autocomplete' />
+    );
+    
+    const input = screen.getByLabelText('autocomplete');
+    
+    await user.type(input, 'Idzikowsk');
+    expect(await screen.findByText('Idzikowskiego')).toBeTruthy();
+
+    await user.type(input, 'Id');
+    expect(screen.queryByText('Idzikowskiego')).toBeFalsy();
   });
 });

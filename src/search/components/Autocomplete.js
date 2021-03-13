@@ -27,13 +27,16 @@ const Autocomplete = props => {
       if (key.length > minLength) {
         const suggestions = await onSearch(key);
         setSuggestions(suggestions);
-        setShowSuggestions(!isSuggested(key));  
+        setShowSuggestions(!isSuggested(key, suggestions));  
+      } else {
+        setShowSuggestions(false);
+        setSuggestions([]);
       }
     };
     updateSuggestions();
   }, [key]);
 
-  const isSuggested = (key) => {
+  const isSuggested = (key, suggestions) => {
     return suggestions.map(x => x.toLowerCase()).includes(key.toLowerCase());
   };
 
