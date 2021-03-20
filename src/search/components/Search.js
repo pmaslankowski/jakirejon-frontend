@@ -8,7 +8,7 @@ const Search = () => {
 
   return (
     <div>
-      <h1 className="header text-center">Znajdź ośrodek podstawowej opieki zdrowotnej (POZ)</h1>
+      <h2 className="header text-center mb-4">Znajdź ośrodek podstawowej opieki zdrowotnej (POZ)</h2>
       <SearchForm onSubmit={setAddress}/>
       { address && (<AddressDetails address={address} className="d-flex justify-content-center mt-5"/>)}
     </div>

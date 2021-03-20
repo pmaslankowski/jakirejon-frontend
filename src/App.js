@@ -10,7 +10,8 @@ const App = () => {
 
   return (
     <Container className="h-100">
-      <div className="h-100 d-flex flex-wrap justify-content-center">
+      <div className="h-25"/>
+      <div className="d-flex flex-wrap justify-content-center">
         <Search/>
       </div>
     </Container>

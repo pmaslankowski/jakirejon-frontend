@@ -1,7 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400&display=swap');
+
 body {
   height: 100vh;
+  font-family: 'Nunito', sans-serif !important;
 }
 
 #root {
   height: 100%;
+  background-image: linear-gradient(to bottom, rgba(255,255,255,0.9) 0%,rgba(255,255,255,0.9) 100%), url("assets/background.jpg");
+  background-attachment: static;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }

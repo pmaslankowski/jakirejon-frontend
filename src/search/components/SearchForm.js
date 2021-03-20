@@ -62,7 +62,7 @@ const SearchForm = props => {
           </div>
         )}
       </Form.Group>
-      <Button className="variant" onClick={handleClick}>Szukaj</Button>
+      <Button type="submit" onClick={handleClick} className="px-4">SZUKAJ</Button>
     </Form>
   );
 };
